@@ -39,7 +39,7 @@ trap "rm -rf -- $TMPDIR" EXIT
 
 TMPFILE="$TMPDIR/grepped"
 
-grep $DATE temp.log > $TMPFILE
+grep $DATE "$INFILE" > "$TMPFILE"
 
 doplot() {
 	OFILE="$TMPDIR/$2.png"
@@ -47,7 +47,7 @@ doplot() {
 	if [ -s "$OFILE" ] ; then
 		$CMD2T sendfile "$OFILE" photo "$OUT"
 	else
-		printf '%s' $OUT >&2
+		printf '%s\n' $OUT >&2
 	fi
 }
 
@@ -57,7 +57,7 @@ do2plot() {
 	if [ -s "$OFILE" ] ; then
 		$CMD2T sendfile "$OFILE" photo "$OUT"
 	else
-		printf '%s' $OUT >&2
+		printf '%s\n' $OUT >&2
 	fi
 }
 
