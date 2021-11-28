@@ -5,8 +5,9 @@ INFILE=$2
 CMD2T=$3
 
 usage() {
-	printf "usage:\n\t$0 date [cmd2t]\n\nparameters:\n"
+	printf "usage:\n\t$0 date file [cmd2t]\n\nparameters:\n"
 	printf "\tdate \tdate in form YYY-MM-DD\n"
+	printf "\tfile \tinput file (temp.log)\n"
 	printf "\tcmd2t\tpath to cmd2telegram\n"
 }
 
