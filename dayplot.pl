@@ -37,7 +37,6 @@ my $bunit = shift (@ARGV) // '';
 while (<>) {
 	die "invalid data '$_'" unless /^(\d\d) (\d\d) (\d\d) ([0-9.]+)( ([0-9.]+))?/;
 	my ($h, $m, $s, $va, $vb) = ($1, $2, $3, $4, $6);
-	die "invalid data '$_'" unless defined $h;
 	$maxa //= $va;
 	$mina //= $va;
 	$maxa = $va if ($va > $maxa);
@@ -51,6 +50,7 @@ while (<>) {
 	push @data, [$h, $m, $s, $va, $vb];
 }
 
+die "no data supplied" unless (@data);
 
 # draw x axis
 
