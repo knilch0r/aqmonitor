@@ -13,11 +13,11 @@ trap "rm -f -- $TMPFILE" EXIT
 grep $DATE temp.log > $TMPFILE
 
 doplot() {
-	cut -d' ' -f2,$1 $TMPFILE | tr -s : ' ' | ./dayplot.pl $2 $3 > $2.png
+	cut -d' ' -f2,$1 $TMPFILE | tr -s : ' ' | ./dayplot.pl $2 "$3" > $2.png
 }
 
 do2plot() {
-	cut -d' ' -f2,$1 $TMPFILE | tr -s : ' ' | ./dayplot.pl $2 $3 $4 $5 > $2$4.png
+	cut -d' ' -f2,$1 $TMPFILE | tr -s : ' ' | ./dayplot.pl $2 "$3" $4 "$5" > $2$4.png
 }
 
 doplot 3 temp degC
