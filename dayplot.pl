@@ -29,9 +29,15 @@ my $blue = $im->colorAllocate(90, 90, 255);
 my ($maxa, $mina, $maxb, $minb);
 my @data;
 
+my $aname = shift (@ARGV) // 'A';
+my $aunit = shift (@ARGV) // '';
+my $bname = shift (@ARGV) // 'B';
+my $bunit = shift (@ARGV) // '';
+
 while (<>) {
 	die "invalid data '$_'" unless /^(\d\d) (\d\d) (\d\d) ([0-9.]+)( ([0-9.]+))?/;
 	my ($h, $m, $s, $va, $vb) = ($1, $2, $3, $4, $6);
+	die "invalid data '$_'" unless defined $h;
 	$maxa //= $va;
 	$mina //= $va;
 	$maxa = $va if ($va > $maxa);
@@ -44,6 +50,7 @@ while (<>) {
 	}
 	push @data, [$h, $m, $s, $va, $vb];
 }
+
 
 # draw x axis
 
@@ -75,6 +82,8 @@ for my $i (0..23) {
 	$im->line($x, 2, $x, 301, $llgrey);
 }
 
+my $MAXX = getxforhms(24,0,0);
+
 # draw y axis
 
 sub getyforval($$$) {
@@ -88,7 +97,7 @@ my $rnga = $maxa - $mina;
 my $bstep = int(10**int(log($rnga)/log(10)));
 my $sstep = $bstep / 10;
 
-my $MAXX = getxforhms(24,0,0);
+print STDERR "$aname min: $mina, max: $maxa, step $bstep $aunit\n";
 
 my $sstart = $mina - POSIX::fmod($mina, $sstep) + $sstep;
 for ( my $i = $sstart; $i < $maxa ; $i += $sstep ) {
@@ -110,6 +119,8 @@ if (defined $maxb) {
 	my $rngb = $maxb - $minb;
 	$bstep = int(10**int(log($rngb)/log(10)));
 	$sstep = $bstep / 10;
+
+	print STDERR "$bname min: $minb, max: $maxb, step $bstep $bunit\n";
 
 	my $sstart = $minb - POSIX::fmod($minb, $sstep) + $sstep;
 	for ( my $i = $sstart; $i < $maxb ; $i += $sstep ) {
