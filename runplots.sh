@@ -56,7 +56,8 @@ doplot() {
 	if [ -s "$OFILE" ] ; then
 		$CMD2T sendfile "$OFILE" photo "$OUT"
 	else
-		printf '%s\n' $OUT >&2
+		printf '%s\n' "$OUT" >&2
+		printf 'Error creating plot: %s' "$OUT" | $CMD2T send
 	fi
 }
 
@@ -66,7 +67,8 @@ do2plot() {
 	if [ -s "$OFILE" ] ; then
 		$CMD2T sendfile "$OFILE" photo "$OUT"
 	else
-		printf '%s\n' $OUT >&2
+		printf '%s\n' "$OUT" >&2
+		printf 'Error creating plot: %s' "$OUT" | $CMD2T send
 	fi
 }
 
